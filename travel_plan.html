@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 美西自驾大环线 (完整行程版)</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #d35400; /* 活力橙 */
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-secondary: #596275;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        h1 { margin: 0; color: var(--primary-color); font-size: 2rem; }
+        .subtitle { color: var(--text-secondary); margin-top: 10px; }
+
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 卡片样式 */
+        .day-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-left: 6px solid var(--accent-color);
+        }
+
+        /* 头部：日期与城市 */
+        .card-header {
+            background: #fdfdfd;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-badge {
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .date-info { font-weight: 600; color: var(--text-main); }
+        .city-info { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* 内容区域 */
+        .card-body { padding: 0; }
+
+        /* 行程行样式 */
+        .itinerary-row {
+            display: flex;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+            text-decoration: none; /* 去掉下划线 */
+            color: inherit;
+            position: relative;
+        }
+
+        .itinerary-row:last-child { border-bottom: none; }
+
+        /* 鼠标悬停效果 - 提示可点击 */
+        .itinerary-row:hover {
+            background-color: #fffaf5;
+        }
+        
+        .itinerary-row:hover::after {
+            content: "🔗 点击查看线路";
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        /* 时间列 */
+        .time-col {
+            flex: 0 0 80px;
+            padding: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-align: center;
+            border-right: 1px solid #f0f0f0;
+            background: #fafafa;
+        }
+
+        /* 内容列 */
+        .content-col {
+            flex: 1;
+            padding: 20px;
+            /* 核心：保留Excel中的换行和格式 */
+            white-space: pre-wrap; 
+            font-size: 0.95rem;
+        }
+
+        /* 住宿列 (嵌入在卡片底部) */
+        .hotel-footer {
+            background: #f8f9fa;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            color: #27ae60;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .hotel-label { font-weight: 700; flex-shrink: 0; }
+
+        @media (max-width: 600px) {
+            .itinerary-row { flex-direction: column; }
+            .time-col { 
+                border-right: none; 
+                border-bottom: 1px solid #f0f0f0; 
+                text-align: left; 
+                padding: 10px 20px;
+                background: #fff;
+                color: var(--accent-color);
+            }
+            .content-col { padding: 15px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>2026 美西自驾行程单</h1>
+    <div class="subtitle">22天 · 4500公里 · 深度环线</div>
+</header>
+
+<div class="timeline-container">
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D1</span>
+            <div><span class="date-info">2026-02-02</span> <span class="city-info">| 重庆/旧金山</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/ThJWx2hSrM7csmXQ7" target="_blank" class="itinerary-row">
+                <div class="time-col">19:40</div>
+                <div class="content-col">旧金山机场/SFO
+商场购物/Costco Wholesale</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            贝斯特韦斯特普拉斯格鲁维诺酒店/Best Western Plus Grosvenor Airport Hotel (2 queen beds)
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D2</span>
+            <div><span class="date-info">2026-02-03</span> <span class="city-info">| 旧金山 San Francisco</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/DG4FMRdSGjTGsonL7" target="_blank" class="itinerary-row">
+                <div class="time-col">08:00</div>
+                <div class="content-col">金门大桥/Golden Gate Bridge
+--SF认知度最高画面/Golden Gate Bridge Welcome Center
+--最经典拍照点/Battery Spencer
+索萨利托/Sausalito
+--海港小镇: 午饭+慢逛 体验SF精致生活感</div>
+            </a>
+            <a href="https://maps.app.goo.gl/uF6a4xKXYqm4ckFm6" target="_blank" class="itinerary-row">
+                <div class="time-col">14:00</div>
+                <div class="content-col">艺术宫/Palace of Fine Arts
+九曲花街/Lombard Street
+圣伯多禄圣保禄教堂/Saints Peter and Paul Church
+北滩/North Beach
+旧金山唐人街/Chinatown
+恩典座堂/Grace Cathedral
+联合广场/Union Square
+彩绘女士（六姊妹）/The Painted Ladies
+克里西菲尔德公园/Crissy Field
+--草地 + 海湾 + 金门大桥 欣赏日落美景</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            贝斯特韦斯特普拉斯格鲁维诺酒店/Best Western Plus Grosvenor Airport Hotel
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🍴 美食:</span>
+            A16 南意餐 / Mel's Drive-In 美式 + 氛围
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D3</span>
+            <div><span class="date-info">2026-02-04</span> <span class="city-info">| 旧金山 ➔ 硅谷</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/ei6QSyhvscrFPn5V8" target="_blank" class="itinerary-row">
+                <div class="time-col">08:00</div>
+                <div class="content-col">使命区/Mission District
+--城市天际线 + 多彩涂鸦
+多洛雷斯公园/Mission Dolores Park
+双子峰/Twin Peaks
+金门公园/Golden Gate Park</div>
+            </a>
+            <a href="https://maps.app.goo.gl/4ktouABKyP5dtWdh7" target="_blank" class="itinerary-row">
+                <div class="time-col">14:00</div>
+                <div class="content-col">兰兹角/Lands End
+--Lands End Lookout 停车
+--苏特罗海水浴场/Sutro Baths</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Days Inn & Suites by Wyndham Sunnyvale
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🍴 美食:</span>
+            Thanh Long Restaurant 螃蟹
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D4</span>
+            <div><span class="date-info">2026-02-05</span> <span class="city-info">| 硅谷 ➔ 大苏尔</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/WU8Qp7RtYwtAMaDBA" target="_blank" class="itinerary-row">
+                <div class="time-col">08:00</div>
+                <div class="content-col">斯坦福大学/Stanford University
+--Galvez Lot 停车
+--Main Quad 拱廊 + 草坪
+--Hoover Tower 远拍
+--Memorial Church 进入参观
+谷歌游客中心/Google Visitor Center
+--Googleplex 安卓草坪雕像
+苹果总部/Apple Park Visitor Center
+--屋顶俯瞰 Apple Park</div>
+            </a>
+            <a href="https://maps.app.goo.gl/BExuFangnDbDGEVYA" target="_blank" class="itinerary-row">
+                <div class="time-col">14:00</div>
+                <div class="content-col">罐头厂街/Cannery Row
+--步行半小时
+帕西菲克格罗夫/Pacific Grove
+--海岸风情
+17里湾/17 Miles Drive
+卡梅尔小镇/Carmel By The Sea
+--La Bicyclette Restaurant 法式小馆
+--Casanova 欧式网红餐馆</div>
+            </a>
+            <a href="https://maps.app.goo.gl/eoMhmkEj4PofAE8PA" target="_blank" class="itinerary-row">
+                <div class="time-col">16:00</div>
+                <div class="content-col">比克斯比溪大桥/Bixby Creek Bridge
+加拉帕塔公园/Garrapata State Park Vista Point
+--悬崖海岸
+大苏尔州立公园/Big Sur State Park
+--菲佛海滩/Pfeiffer Beach
+--麦克维瀑布/McWay Falls
+象海豹滩/Elephant Seal Vista Point
+赫斯特城堡/Hearst Castle</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            The Morgan San Simeon - Cambria by Hearst Castle
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D5</span>
+            <div><span class="date-info">2026-02-06</span> <span class="city-info">| 圣芭芭拉 ➔ 圣莫妮卡</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/PSkPDFkJFBpSwjBb9" target="_blank" class="itinerary-row">
+                <div class="time-col">07:30</div>
+                <div class="content-col">月光石海滩/Moonstone Beach
+莫罗岩/Morro Rock
+麦当娜酒店/Madonna Inn
+皮斯摩海滩：帝王蝶树林/Monarch Butterfly Grove
+丹麦村/Solvang
+--Windmills 风车群
+--Little Mermaid Fountain 小美人鱼雕像
+--Half-timbered Houses 半木结构丹麦建筑
+--Old Mission Santa Inés 老教堂
+卡楚马湖/Lake Cachuma
+加州大学圣芭芭拉分校/UCSB
+--Storke Tower 
+--Campus Beach / Goleta Beach 学生沙滩氛围
+县立法院/Santa Barbara County Courthouse Gardens
+--登高观景
+斯特恩码头/Stearns Wharf</div>
+            </a>
+            <a href="https://maps.app.goo.gl/UjJ1LxzijJduR8f66" target="_blank" class="itinerary-row">
+                <div class="time-col">15:00</div>
+                <div class="content-col">马里布海滩/Malibu Beach
+--El Matador State Beach 岩洞、礁石、日落
+--Zuma Beach 最开阔、最自然
+--Point Dume 悬崖视角
+盖蒂别墅博物馆/The Getty Villa
+--罗马古典建筑 + 花园
+圣莫妮卡海滩/Santa Monica Beach
+--城市名片
+--Santa Monica Pier 摩天轮
+--Ocean Avenue 日落</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            海岸汽车旅馆/Sea Shore Motel
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D6</span>
+            <div><span class="date-info">2026-02-07</span> <span class="city-info">| 洛杉矶 Los Angeles</span></div>
+        </div>
+        <div class="card-body">
+            <a href="#" target="_blank" class="itinerary-row">
+                <div class="time-col">08:00</div>
+                <div class="content-col">圣莫妮卡海滩/Santa Monica Beach
+威尼斯海滩/Venice Beach
+--涂鸦、怪人、音乐、滑板、即兴表演
+--Venice Boardwalk
+--Muscle Beach
+--Venice Canals</div>
+            </a>
+            <a href="https://maps.app.goo.gl/KTdu2Y3DPLEyD1rd9" target="_blank" class="itinerary-row">
+                <div class="time-col">10:30</div>
+                <div class="content-col">加州大学洛杉矶分校/UCLA
+--Royce Hall 罗马式双塔 
+--Powell Library 最美图书馆
+--Sculpture Garden 草坪 + 雕塑 + 阳光
+--Bruin Walk 校园主路
+--Ackerman Union Food Court 感受校园午餐
+盖蒂中心/Getty Center 城市名片
+--Getty Center Parking Garage 免费小火车上山
+--Central Plaza
+--Robert Irwin Central Garden
+--欧洲绘画 莫奈、伦勃朗等名家画作</div>
+            </a>
+            <a href="https://maps.app.goo.gl/JVCzUQagkrAiSc2WA" target="_blank" class="itinerary-row">
+                <div class="time-col">16:00</div>
+                <div class="content-col">罗迪欧大道/Rodeo Drive
+比弗利山/Beverly Hills
+好莱坞大道/Hollywood Blvd</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Best Western Pasadena Royale Inn & Suites
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D7</span>
+            <div><span class="date-info">2026-02-08</span> <span class="city-info">| 洛杉矶 (帕萨迪纳)</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/ZUsFEZQXjNrLHBXh6" target="_blank" class="itinerary-row">
+                <div class="time-col">08:00</div>
+                <div class="content-col">富国银行/Wells Fargo
+美以美医院/USC Arcadia Hospital
+亨廷顿图书馆 & 植物园/The Huntington</div>
+            </a>
+            <a href="https://maps.app.goo.gl/ev3Rf7km7aBxKY9B7" target="_blank" class="itinerary-row">
+                <div class="time-col">13:00</div>
+                <div class="content-col">老帕萨迪纳/Old Pasadena
+--洛杉矶华人聚集区
+帕萨迪纳市政厅/Pasadena City Hall
+圣马力诺/San Marino
+洛杉矶州立历史公园/Los Angeles State Historic Park
+--洛杉矶市中心
+洛杉矶艺术博物馆/LACMA
+--Urban Light 202 盏复古路灯
+--Levitated Mass
+--BCAM 当代艺术馆
+--Resnick Pavilion 临展
+格里菲斯天文台/Griffith Observatory</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Lexen Hotel - North Hollywood Near Universal Studios
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D8</span>
+            <div><span class="date-info">2026-02-09</span> <span class="city-info">| 环球影城 ➔ 圣地亚哥</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/7iCDJvBrMnChc4CJA" target="_blank" class="itinerary-row">
+                <div class="time-col">07:30</div>
+                <div class="content-col">环球影城/Universal Studios Hollywood</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Holiday Inn Carlsbad/San Diego By IHG
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D9</span>
+            <div><span class="date-info">2026-02-10</span> <span class="city-info">| 圣迭戈 San Diego</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/XojzCLD63bVs81PP9" target="_blank" class="itinerary-row">
+                <div class="time-col">08:00</div>
+                <div class="content-col">拉霍亚/La Jolla
+多利松国家自然保护区/Torrey Pines
+日落悬崖自然公园/Sunset Cliffs Natural Park
+--悬崖海岸线 + 巨浪</div>
+            </a>
+            <a href="https://maps.app.goo.gl/8epKamTGSrsYsovXA" target="_blank" class="itinerary-row">
+                <div class="time-col">14:00</div>
+                <div class="content-col">巴尔波亚公园/Balboa Park
+--California Tower
+--Botanical Building
+煤气灯街区/Gaslamp Quarter</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Best Western Yacht Harbor Hotel (The Lion's Share)
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D10</span>
+            <div><span class="date-info">2026-02-11</span> <span class="city-info">| 圣迭戈 ➔ 尤马</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/wj6zKScvAaUNDPnH7" target="_blank" class="itinerary-row">
+                <div class="time-col">08:00</div>
+                <div class="content-col">中途岛航母博物馆/USS Midway Museum
+--航母博物馆
+海港村/Seaport Village
+--海滨步道
+科罗拉多岛/Coronado Island & Hotel del Coronado
+--白色沙滩 + 复古红顶酒店
+帝国海滩栈桥/Imperial Beach Pier
+--遥看美墨边境墙</div>
+            </a>
+            <a href="https://maps.app.goo.gl/QwRJPw1gmVniZWiQ8" target="_blank" class="itinerary-row">
+                <div class="time-col">13:00</div>
+                <div class="content-col">南湾垂钓与射击俱乐部/South Bay Rod & Gun Club
+--射击体验
+沙漠塔/Desert View Tower
+安扎-博雷戈沙漠州立公园/Anza-Borrego Desert State Park
+--Galleta Meadows Sculptures
+--博雷戈泉/Borrego Springs
+--巨型金属雕塑
+--阿尔戈多内斯沙丘/Algodones Dunes
+帝国沙丘风景驾车路线/Imperial Sand Dunes Scenic Drive</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Days Inn by Wyndham Yuma (Bodega 23 Mexican)
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D11</span>
+            <div><span class="date-info">2026-02-12</span> <span class="city-info">| 菲尼克斯 Phoenix</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/TGiny97SxesAX56C8" target="_blank" class="itinerary-row">
+                <div class="time-col">07:20</div>
+                <div class="content-col">沙漠植物园/Desert Botanical Garden</div>
+            </a>
+            <a href="https://maps.app.goo.gl/5JWkskYpwdZWm1iZ7" target="_blank" class="itinerary-row">
+                <div class="time-col">16:00</div>
+                <div class="content-col">驼峰山/Camelback Mountain
+恩坎托公园/Encanto Park
+斯科茨代尔/Old Town Scottsdale</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            SureStay Plus by Best Western Mesa Superstition Springs
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D12</span>
+            <div><span class="date-info">2026-02-13</span> <span class="city-info">| 通拖国家森林</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/ig8a4mU1ndUdfk826" target="_blank" class="itinerary-row">
+                <div class="time-col">08:00</div>
+                <div class="content-col">趴趴狗公园/Papago Park
+--Hole-in-the-Rock 天然穿孔砂岩，城市全景
+--Papago Park Scenic Drive 自驾</div>
+            </a>
+            <a href="https://maps.app.goo.gl/hrDR9h6riUhyLncAA" target="_blank" class="itinerary-row">
+                <div class="time-col">11:00</div>
+                <div class="content-col">四峰荒野区/Four Peaks Wilderness 沙漠到松林的景观变化
+迷信山荒野区/Superstition Mountains Wilderness
+--火山岩山体、仙人掌、峡谷
+罗斯福湖/Roosevelt Lake 湖泊 + 沙漠山体
+盐河峡谷/Salt River Canyon 野马群
+阿帕奇小径（AZ-88 风景公路）/Apache Trail 峡谷 + 湖泊 + 荒漠公路
+失落的荷兰人州立公园/Lost Dutchman State Park 徒步
+虹吸峡谷/Siphon Draw 视天气情况</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            SureStay Plus by Best Western Mesa
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D13</span>
+            <div><span class="date-info">2026-02-14</span> <span class="city-info">| 塞多纳 Sedona</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/J6y2C6UwH37EC32k8" target="_blank" class="itinerary-row">
+                <div class="time-col">07:20</div>
+                <div class="content-col">杰罗姆悬崖矿业小镇/Jerome
+--Jerome State Historic Park
+--Gold King Mine & Ghost Town</div>
+            </a>
+            <a href="https://maps.app.goo.gl/VFjMK7rghAMSxEp4A" target="_blank" class="itinerary-row">
+                <div class="time-col">13:00</div>
+                <div class="content-col">Red Rock Scenic Byway 风景公路
+Bell Rock & Courthouse Butte Loop 红岩经典步道
+Chapel of the Holy Cross 红岩中的现代教堂
+Airport Mesa 日落</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            塞多纳乡村旅馆/Sedona Village Lodge
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D14</span>
+            <div><span class="date-info">2026-02-15</span> <span class="city-info">| 大峡谷 ➔ 金曼</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/imJDXiZKoUvMbfE67" target="_blank" class="itinerary-row">
+                <div class="time-col">06:20</div>
+                <div class="content-col">大峡谷国家公园/Grand Canyon National Park
+--Yavapai Viewpoint 必打卡
+--Mather Point 必打卡
+--Grandview Point
+--Moran Point
+--Lipan Point
+--Desert View Watchtower</div>
+            </a>
+            <a href="https://maps.app.goo.gl/CSD8fPbAGtJk6bR96" target="_blank" class="itinerary-row">
+                <div class="time-col">14:30</div>
+                <div class="content-col">66号公路博物馆/Route 66 Museum</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Ramada by Wyndham Kingman (Mr. D'z Route 66 Diner)
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D15</span>
+            <div><span class="date-info">2026-02-16</span> <span class="city-info">| 拉斯维加斯 Las Vegas</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/g29mjwANDVyuKK6D7" target="_blank" class="itinerary-row">
+                <div class="time-col">08:00</div>
+                <div class="content-col">威尼斯人酒店/Venetian</div>
+            </a>
+            <a href="https://maps.app.goo.gl/Kbk5M43rbCqdhGu88" target="_blank" class="itinerary-row">
+                <div class="time-col">14:00</div>
+                <div class="content-col">红岩峡谷景观道/Red Rock Canyon Scenic Drive</div>
+            </a>
+            <a href="https://maps.app.goo.gl/Q82xMwnWNT3cae3H7" target="_blank" class="itinerary-row">
+                <div class="time-col">16:00</div>
+                <div class="content-col">球形剧场/Sphere
+--赌城新地标
+--观看“绿野仙踪”</div>
+            </a>
+            <a href="https://maps.app.goo.gl/Cf72TUvNS4F8q4zL9" target="_blank" class="itinerary-row">
+                <div class="time-col">18:30</div>
+                <div class="content-col">拉斯维加斯招牌/Welcome to Fabulous Las Vegas Sign
+纽约纽约赌场酒店/New York-New York Hotel & Casino</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            威尼斯人度假酒店/The Venetian Resort Las Vegas
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D16</span>
+            <div><span class="date-info">2026-02-17</span> <span class="city-info">| 拉斯维加斯 (休闲)</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/bAxJpcgAjxwtRLfGA" target="_blank" class="itinerary-row">
+                <div class="time-col">09:30</div>
+                <div class="content-col">北奥特莱斯/North Premium Outlets
+城镇广场购物中心/Town Square
+凯撒宫论坛购物中心/Forum Shops
+百丽宫O秀/"O" by Cirque du Soleil</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            拉斯维加斯巴黎酒店/Paris Las Vegas
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D17</span>
+            <div><span class="date-info">2026-02-18</span> <span class="city-info">| 死亡谷 ➔ 里奇克莱斯特</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/heE4Q3UJRjxDAtzi9" target="_blank" class="itinerary-row">
+                <div class="time-col">08:30</div>
+                <div class="content-col">死亡谷国家公园/Death Valley National Park
+扎布里斯基角/Zabriskie Point
+恶水盆地/Badwater Basin
+彩色山/Artist's Drive
+梅斯基特平地沙丘/Mesquite Flat Sand Dunes</div>
+            </a>
+            <a href="https://maps.app.goo.gl/to4CQ35vrHuqxUu4A" target="_blank" class="itinerary-row">
+                <div class="time-col">15:00</div>
+                <div class="content-col">鱼石/Fish Rocks
+岩画公园/Petroglyph Park</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Days Inn by Wyndham Ridgecrest
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D18</span>
+            <div><span class="date-info">2026-02-19</span> <span class="city-info">| 太浩湖方向</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/rowFaB5kzkSe56M87" target="_blank" class="itinerary-row">
+                <div class="time-col">07:30</div>
+                <div class="content-col">马麦斯湖/Mammoth Lakes
+--Mammoth Mountain 滑雪圣地</div>
+            </a>
+            <a href="https://maps.app.goo.gl/3xbgnJ3AFiSFf7eG7" target="_blank" class="itinerary-row">
+                <div class="time-col">15:30</div>
+                <div class="content-col">莫诺湖石灰华州立自然保护区/Mono Lake Tufa State Natural Reserve</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Quality Inn South Lake Tahoe
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D19</span>
+            <div><span class="date-info">2026-02-20</span> <span class="city-info">| 萨克拉门托 ➔ 纳帕</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/byLy4bAharmGRp6s5" target="_blank" class="itinerary-row">
+                <div class="time-col">09:00</div>
+                <div class="content-col">加州议会大厦/California State Capitol & Museum
+老萨克拉门托/Old Sacramento
+河滨步道/Old Sacramento Waterfront</div>
+            </a>
+            <a href="https://maps.app.goo.gl/G6M5SPTxwXUGPFtJ9" target="_blank" class="itinerary-row">
+                <div class="time-col">14:00</div>
+                <div class="content-col">沿河步道贯穿葡萄园/Napa Valley Vine Trail
+意大利城堡风格酒庄/Castello di Amorosa
+山景酒店/Mount View Hotel & Spa</div>
+            </a>
+        </div>
+        <div class="hotel-footer">
+            <span class="hotel-label">🏨 住宿:</span>
+            Hampton Inn & Suites Napa
+        </div>
+    </div>
+
+    <div class="day-card">
+        <div class="card-header">
+            <span class="day-badge">D20</span>
+            <div><span class="date-info">2026-02-21</span> <span class="city-info">| 伯克利 ➔ 返程</span></div>
+        </div>
+        <div class="card-body">
+            <a href="https://maps.app.goo.gl/siRs2kbFET99mPDR8" target="_blank" class="itinerary-row">
+                <div class="time-col">09:30</div>
+                <div class="content-col">史努比博物馆/Charles M. Schulz Museum</div>
+            </a>
+            <a href="https://maps.app.goo.gl/2m1882emQmgbtK1T9" target="_blank" class="itinerary-row">
+                <div class="time-col">12:00</div>
+                <div class="content-col">加州大学伯克利分校/UC Berkeley
+梅里特湖/Lake Merritt
+河岸步道/Jack London Square</div>
+            </a>
+            <a href="https://maps.app.goo.gl/xuDuqKkPoMWdqgzF7" target="_blank" class="itinerary-row">
+                <div class="time-col">17:30</div>
+                <div class="content-col">旧金山机场/SFO
+机场还车</div>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
